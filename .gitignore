@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtualenv / uv
+.venv/
+venv/
+uv.lock
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Local vector store / model caches / traces
+.chroma/
+*.chroma
+.cache/
+data/index/
+traces/
+
+# Test / tooling
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

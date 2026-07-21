@@ -1,0 +1,64 @@
+[project]
+name = "agentic-rag-evals"
+version = "0.1.0"
+description = "Reference implementation of an evaluation-driven agentic RAG pipeline: LangGraph orchestration, hybrid retrieval, LLM-as-judge eval gates in CI, OpenTelemetry tracing."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "Mikita Daroshkin" }]
+keywords = ["llm", "rag", "agents", "langgraph", "evals", "llmops"]
+
+dependencies = [
+    "langgraph>=0.2.40",
+    "langchain-core>=0.3.0",
+    "chromadb>=0.5.5",
+    "sentence-transformers>=3.0.0",
+    "rank-bm25>=0.2.2",
+    "openai>=1.40.0",
+    "tiktoken>=0.7.0",
+    "fastapi>=0.114.0",
+    "uvicorn[standard]>=0.30.0",
+    "pydantic>=2.8.0",
+    "pydantic-settings>=2.4.0",
+    "opentelemetry-sdk>=1.27.0",
+    "opentelemetry-api>=1.27.0",
+    "numpy>=1.26,<2.2",
+    "python-dotenv>=1.0.1",
+    "httpx>=0.27.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "ruff>=0.6.0",
+]
+
+[project.urls]
+Repository = "https://github.com/mikitadaroshkin/agentic-rag-evals"
+
+[project.scripts]
+rag-ingest = "agentic_rag.ingest:main"
+# The eval harness lives in the top-level `evals/` package; run it with
+#   python -m evals.run_eval
+# (kept out of the wheel so the offline golden set / fixtures aren't shipped as a dependency).
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agentic_rag"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "evals", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]
+ignore = ["B008"]  # FastAPI Depends() in defaults is idiomatic
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+pythonpath = [".", "src"]
