@@ -1,0 +1,67 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Cancel superseded runs on the same ref.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-and-evals:
+    runs-on: ubuntu-latest
+    env:
+      RAG_TRACING: none
+      # No API key is needed: retrieval runs on local embeddings and every LLM/judge call is
+      # served from committed cassettes (replay mode). CI stays free and deterministic.
+      RAG_CASSETTE: replay
+      HF_HOME: ${{ github.workspace }}/.hf
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+
+      - name: Cache Hugging Face model
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.HF_HOME }}
+          key: hf-minilm-${{ hashFiles('requirements.txt') }}
+
+      - name: Install (pinned for reproducible embeddings)
+        run: |
+          python -m pip install --upgrade pip
+          pip install --extra-index-url https://download.pytorch.org/whl/cpu -r requirements.txt
+          pip install -e . --no-deps
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Build vector index
+        run: python -m agentic_rag.ingest
+
+      - name: Unit + smoke tests
+        run: pytest
+
+      - name: Eval gate (retrieval metrics live + judged answers from cassettes)
+        run: python -m evals.run_eval --report evals/reports/ci.json
+
+      - name: Upload eval report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-report
+          path: evals/reports/ci.json
+          if-no-files-found: ignore
