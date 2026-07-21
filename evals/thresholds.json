@@ -1,0 +1,10 @@
+{
+  "_comment": "Regression gate for CI. A PR fails if any metric drops below its floor. Floors sit ~0.08-0.10 under the committed real-run numbers in evals/reports/latest.json so genuine regressions trip the gate without flapping. Re-baseline deliberately (make eval-record) when the pipeline legitimately changes.",
+  "hit_at_k": 0.9,
+  "recall_at_k": 0.9,
+  "mrr": 0.88,
+  "answer_similarity": 0.68,
+  "answer_correctness": 0.58,
+  "faithfulness": 0.62,
+  "abstain_accuracy": 0.66
+}
