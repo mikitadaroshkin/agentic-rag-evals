@@ -1,0 +1,722 @@
+{
+  "config": {
+    "llm_backend": "local_hf",
+    "llm_model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "judge_model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "embedding_backend": "local",
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "top_k": 5,
+    "cassette_mode": "replay",
+    "judged": true
+  },
+  "counts": {
+    "answerable": 30,
+    "abstain_controls": 3,
+    "total": 33
+  },
+  "retrieval": {
+    "k": 5,
+    "hit_at_k": 1.0,
+    "recall_at_k": 0.9833,
+    "mrr": 0.9833
+  },
+  "answer": {
+    "answer_similarity": 0.7633,
+    "answer_correctness": 0.6667,
+    "pct_correct": 0.6667,
+    "faithfulness": 0.7333
+  },
+  "abstention": {
+    "abstain_accuracy": 1.0,
+    "false_abstain_rate": 0.0333
+  },
+  "mean_reformulations": 0.273,
+  "items": [
+    {
+      "id": "q01",
+      "question": "What does BM25 estimate, and which document statistics does it combine?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "bm25",
+        "tf-idf",
+        "vector-space-model"
+      ],
+      "answer": "BM25 estimates the relevance of documents to a given search query. It combines document statistics including term frequency, inverse document frequency, and document length. Specifically, it calculates the sum of logarithms of the ratio of the total number of documents divided by the number of times a query term appears in each document. This process helps rank documents based on how well they match the query terms across multiple fields like headlines, main text, and anchor text, considering their importance, relevance, and length normalization.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "BM25 is a ranking function that estimates the relevance of a document to a query. It combines term frequency and inverse document frequency, adding term-frequency saturation and document-length normalization.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer accurately describes what BM25 does and how it combines various document statistics, matching the reference exactly.",
+      "answer_similarity": 0.9262
+    },
+    {
+      "id": "q02",
+      "question": "What do the BM25 parameters k1 and b control?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 1,
+      "retrieved_docs": [
+        "bm25",
+        "information-retrieval",
+        "learning-to-rank"
+      ],
+      "answer": "The BM25 parameters k1 and b control how much weight should be given to the frequency of a word in a document compared to the frequency of the same word in all documents. Specifically, k1 controls the smoothing parameter, affecting the balance between the document frequency and the inverse document frequency, while b affects the similarity between documents, influencing how similar two documents should be to receive high scores. [chunk_id: bm25::6] [chunk_id: bm25::7]",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "k1 controls term-frequency saturation, i.e. how quickly extra occurrences of a term stop increasing the score, and b controls the strength of document-length normalization (b=1 is full normalization, b=0 none).",
+      "correctness": "incorrect",
+      "correctness_score": 0.0,
+      "faithful": false,
+      "judge_reasoning": "The system answer does not accurately describe what k1 and b control according to the reference answer.",
+      "answer_similarity": 0.6687
+    },
+    {
+      "id": "q03",
+      "question": "What is the intuition behind inverse document frequency (IDF)?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "tf-idf",
+        "bm25",
+        "vector-space-model"
+      ],
+      "answer": "The intuition behind inverse document frequency (IDF) is that it measures how much information the word provides, i.e., how common or rare it is across all documents. It is the logarithmically scaled inverse fraction of the documents that contain the word (obtained by dividing the total number of documents by the number of documents containing the term, and then taking the logarithm of that quotient): [tf-idf::4] [chunk_id=\"4\"]",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "IDF weights terms by how rare they are across the collection: terms appearing in many documents get a low weight and rare, more discriminative terms get a high weight. It is computed from the log of the ratio of total documents to documents containing the term.",
+      "correctness": "incorrect",
+      "correctness_score": 0.0,
+      "faithful": false,
+      "judge_reasoning": "The system answer does not accurately reflect the definition provided in the reference answer. Instead, it introduces new terminology ('tf-idf') which was not present in the original reference.",
+      "answer_similarity": 0.6818
+    },
+    {
+      "id": "q04",
+      "question": "What two components are multiplied together in tf-idf?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "tf-idf",
+        "learning-to-rank"
+      ],
+      "answer": "In tf\u2013idf, the two components multiplied together are term frequency (tf) and inverse document frequency (idf). This relationship is expressed in the formula:\n\n\\[ \\text{tfidf}(t, d, D) = \\text{tf}(t, d) \\cdot \\text{idf}(t, D) \\]\n\nwhere:\n- \\( \\text{tf}(t, d) \\) represents the term frequency of term \\( t \\) in document \\( d \\).\n- \\( \\text{idf}(t, D) \\) represents the inverse document frequency of term \\( t \\) across all documents in the collection \\( D \\).\n\nThis multiplication results in the final tf-idf score for a particular term in a specific document.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "tf-idf multiplies term frequency (how often a term occurs in a document) by inverse document frequency (how rare the term is across the whole collection).",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system correctly identifies term frequency (tf) and inverse document frequency (idf) as the two components multiplied together in tf-idf.",
+      "answer_similarity": 0.7575
+    },
+    {
+      "id": "q05",
+      "question": "How are documents and queries represented in the vector space model?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "vector-space-model",
+        "information-retrieval",
+        "learning-to-rank"
+      ],
+      "answer": "Documents and queries are represented as vectors in the vector space model. Specifically, in the context provided:\n\n- **Documents**: Represented as vectors where each element corresponds to a word or phrase in the document.\n- **Queries**: Also represented as vectors where each element corresponds to a word or phrase in the query.\n\nThis representation allows for the calculation of distances between documents and queries, which helps in determining their relevance to one another.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "In the vector space model, documents and queries are represented as vectors of term weights in a high-dimensional space (one dimension per term), and their relevance is estimated from the distance or angle between the vectors.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system accurately describes how documents and queries are represented in the vector space model, including specifying that they are represented as vectors with elements corresponding to terms.",
+      "answer_similarity": 0.8286
+    },
+    {
+      "id": "q06",
+      "question": "What does cosine similarity measure, and what is its range for vectors with non-negative components?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "cosine-similarity"
+      ],
+      "answer": "Cosine similarity measures the cosine of the angle between two non-zero vectors. Its range for vectors with non-negative components is [0, 1].",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "Cosine similarity measures the cosine of the angle between two vectors, i.e. their orientation rather than magnitude. For vectors with non-negative components it ranges from 0 to 1, where 1 means the vectors point in the same direction.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer correctly states that cosine similarity measures the cosine of the angle between two vectors and specifies that its range is [0, 1]. It also mentions that this applies to vectors wit",
+      "answer_similarity": 0.9402
+    },
+    {
+      "id": "q07",
+      "question": "Why is cosine similarity often preferred over Euclidean distance for comparing text vectors?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "cosine-similarity"
+      ],
+      "answer": "Cosine similarity is often preferred over Euclidean distance for comparing text vectors because it takes into account the direction of the vectors rather than just their magnitude. This makes it particularly useful when dealing with high-dimensional spaces like those found in natural language processing where vectors represent words or phrases. By focusing on angles between vectors instead of distances, cosine similarity provides a more meaningful comparison of textual content based on semantic relationships rather than mere proximity in a multi-dimensional space.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "Because cosine similarity compares orientation rather than magnitude, it is insensitive to vector length. Documents of very different lengths but similar term distributions are still judged similar, which raw Euclidean distance would not capture.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer accurately explains why cosine similarity is preferred over Euclidean distance by highlighting its ability to compare the direction of vectors rather than their magnitudes. It also c",
+      "answer_similarity": 0.738
+    },
+    {
+      "id": "q08",
+      "question": "Define precision and recall in information retrieval.",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "ir-evaluation-measures",
+        "precision-and-recall"
+      ],
+      "answer": "In information retrieval, precision is the fraction of relevant instances among the retrieved instances, written as:\n\n\\[ \\text{Precision} = \\frac{\\text{Relevant retrieved instances}}{\\text{All retrieved instances}} \\]\n\nRecall is the fraction of relevant instances that were retrieved, written as:\n\n\\[ \\text{Recall} = \\frac{\\text{Relevant retrieved instances}}{\\text{All relevant instances}} \\]",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 0.5,
+      "reference": "Precision is the fraction of retrieved documents that are relevant; recall is the fraction of relevant documents that are successfully retrieved.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer correctly defines precision and recall using the provided formulas.",
+      "answer_similarity": 0.8825
+    },
+    {
+      "id": "q09",
+      "question": "What is the F1 score and how does it relate to precision and recall?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "precision-and-recall",
+        "ir-evaluation-measures"
+      ],
+      "answer": "The F1 score is calculated as follows:\n\n\\[ F_\u03b2 = 1 - \\frac{1}{{\\frac{\\alpha}{P} + \\frac{1-\\alpha}{R}}} \\]\n\nwhere \\( \\alpha \\) is the threshold for the F-measure. This formula relates the F1 score to precision (\\( P \\)) and recall (\\( R \\)). Specifically, it states that the F1 score is equal to 1 minus the average of the reciprocals of precision and recall, with weights determined by the threshold \\( \\alpha \\).\n\nFor example, if precision (\\( P \\)) is 0.9 and recall (\\( R \\)) is 0.8, the F1 score would be:\n\n\\[ F_\u03b2 = 1 - \\frac{1}{{\\frac{0.9}{P} + \\frac{1-0.9}{R}}} = 1 - \\frac{1}{{\\frac{0.9}{0.9} + \\frac{0.1}{0.8}}} = 1 - \\",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "The F1 score is the harmonic mean of precision and recall, combining both into a single number that is high only when both precision and recall are high.",
+      "correctness": "incorrect",
+      "correctness_score": 0.0,
+      "faithful": true,
+      "judge_reasoning": "",
+      "answer_similarity": 0.8151
+    },
+    {
+      "id": "q10",
+      "question": "What does the 'fall-out' metric measure in retrieval evaluation?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "ir-evaluation-measures",
+        "information-retrieval"
+      ],
+      "answer": "The 'fall-out' metric measures the proportion of non-relevant documents that are retrieved, out of all non-relevant documents available. [chunk_id: 7]",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "Fall-out is the proportion of non-relevant documents that are retrieved out of all non-relevant documents in the collection, i.e. the false positive rate.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer accurately describes what fall-out measures in retrieval evaluation, matching both the definition provided in the reference answer and the specific example given.",
+      "answer_similarity": 0.7884
+    },
+    {
+      "id": "q11",
+      "question": "What is average precision for a single query?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "ir-evaluation-measures",
+        "precision-and-recall"
+      ],
+      "answer": "The average precision for a single query is computed by integrating the precision at every position in the ranked sequence of documents over the interval from r = 0 to r = 1. This integral gives the area under the precision-recall curve, representing the average precision across all positions in the ranked list.",
+      "hit": 1.0,
+      "recall": 0.5,
+      "rr": 1.0,
+      "reference": "Average precision summarizes a ranked result list for one query by averaging the precision values computed at each rank position where a relevant document is retrieved.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "",
+      "answer_similarity": 0.8405
+    },
+    {
+      "id": "q12",
+      "question": "What is mean average precision (MAP)?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "ir-evaluation-measures",
+        "learning-to-rank",
+        "precision-and-recall"
+      ],
+      "answer": "Mean average precision (MAP) is defined as the integral of p(r) from 0 to 1, where p(r) is the precision at recall r. This represents the average value of p(r) across the entire range of recall values from 0 to 1.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "Mean average precision is the mean of the average precision scores across a set of queries, giving a single summary of ranked-retrieval quality over the whole query set.",
+      "correctness": "incorrect",
+      "correctness_score": 0.0,
+      "faithful": false,
+      "judge_reasoning": "The system answer does not correctly define or explain what mean average precision (MAP) is. It instead defines an integral related to precision and recall, which is unrelated to MAP.",
+      "answer_similarity": 0.6572
+    },
+    {
+      "id": "q13",
+      "question": "What is a word embedding?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "word-embedding",
+        "sentence-embedding"
+      ],
+      "answer": "A word embedding is a representation of a word in natural language processing, typically a real-valued vector that encodes the meaning of the word in such a way that words that are closer in the vector space are expected to be similar in meaning. Word embeddings are used in text analysis and can be obtained using various methods including neural networks, dimensionality reduction on the word co-occurrence matrix, probabilistic models, explainable knowledge base method, and explicit representation in terms of the context in which words appear.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "A word embedding is a representation of a word as a real-valued vector that encodes its meaning so that words with similar meanings have similar vectors, capturing semantic and syntactic relationships.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer accurately describes what a word embedding is, explaining that it represents a word as a real-valued vector encoding its meaning, captures semantic and syntactic relationships, and m",
+      "answer_similarity": 0.9199
+    },
+    {
+      "id": "q14",
+      "question": "Name a well-known method for producing word embeddings.",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "word-embedding",
+        "sentence-embedding"
+      ],
+      "answer": "A well-known method for producing word embeddings is the use of neural networks, dimensionality reduction on the word co-occurrence matrix, probabilistic models, explainable knowledge base method, and explicit representation in terms of the context in which words appear.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "Word2vec is a well-known method for learning word embeddings from large text corpora; GloVe and fastText are other common methods.",
+      "correctness": "incorrect",
+      "correctness_score": 0.0,
+      "faithful": false,
+      "judge_reasoning": "The system answer does not mention any specific methods like Word2Vec, GloVe, or fastText, which are explicitly mentioned in the reference answer.",
+      "answer_similarity": 0.6476
+    },
+    {
+      "id": "q15",
+      "question": "What is a sentence embedding?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "sentence-embedding",
+        "word-embedding"
+      ],
+      "answer": "A sentence embedding (or document embedding) is a representation of a natural language text as a vector of numbers which encodes meaningful semantic information. It stems from the initial limitations of the approach to embed sequences of text longer than a sentence, but this is no longer a limitation.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "A sentence embedding represents an entire sentence or short text as a single vector of numbers that encodes its semantic meaning, used for tasks such as semantic similarity and retrieval.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer accurately defines a sentence embedding as a representation of a natural language text as a vector of numbers that encodes meaningful semantic information, similar to the reference a",
+      "answer_similarity": 0.9011
+    },
+    {
+      "id": "q16",
+      "question": "What is the goal of nearest neighbor search?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "nearest-neighbor-search"
+      ],
+      "answer": "The goal of nearest neighbor search is to find the point in a given set that is closest (or most similar) to a given point.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "Nearest neighbor search finds, for a given query point, the point in a dataset that is closest (most similar) to it under a distance or dissimilarity measure.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer accurately conveys the key fact about the goal of nearest neighbor search, which is to find the point in a dataset that is closest (or most similar) to a given point.",
+      "answer_similarity": 0.8148
+    },
+    {
+      "id": "q17",
+      "question": "Why is approximate nearest neighbor (ANN) search used instead of exact search?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "nearest-neighbor-search"
+      ],
+      "answer": "Approximate nearest neighbor search algorithms allow returning points whose distance from the query is at most c times the distance from the query to its nearest points. The appeal of this approach is that, in many cases, an approximate nearest neighbor is almost as good as the exact one. In particular, if the distance measure accurately captures the notion of user quality, then small differences in the distance should not matter.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "Exact nearest neighbor search becomes very expensive in high dimensions and on large datasets, so approximate methods return near-optimal neighbors much faster while accepting a small loss in accuracy.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer correctly explains why approximate nearest neighbor (ANN) search is preferred over exact search by discussing the cost-effectiveness in high dimensions and large datasets, and how AN",
+      "answer_similarity": 0.766
+    },
+    {
+      "id": "q18",
+      "question": "What is learning to rank?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "learning-to-rank"
+      ],
+      "answer": "Learning to rank (LTR) or machine-learned ranking (MLR) is the application of machine learning, often supervised, semi-supervised or reinforcement learning, in the construction of ranking models for information retrieval and recommender systems. The goal is to rank new, unseen lists in a similar way to rankings in the training data.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "Learning to rank is the application of machine learning to build ranking models for information retrieval and recommender systems, training on judged query-document data to order results by relevance.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer accurately describes learning to rank (LTR) or machine-learned ranking (MLR), which includes the use of machine learning techniques such as supervised, semi-supervised, or reinforcem",
+      "answer_similarity": 0.8038
+    },
+    {
+      "id": "q19",
+      "question": "What distinguishes the pointwise, pairwise, and listwise approaches to learning to rank?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "learning-to-rank"
+      ],
+      "answer": "The pointwise approach aims at learning a function f(x) predicting the real-value or ordinal score of a document x using the loss function L(f; x_j, y_j). A number of existing supervised machine learning algorithms can be readily used for this purpose. Ordinal regression and classification algorithms can also be used in pointwise approach when they are used to predict the score of a single query-document pair, and it takes a small, finite number of values.\n\nPairwise approach In this case, the learning-to-rank problem is approximated by a classification problem - learning a binary classifier h(u,v) that can tell which document is better most evaluation measures are not continuous functions with respect to ranking model's parameters, and so continuous approximations or bounds on evaluation measures have to be used. For example the SoftRank algorithm. LambdaMART is a pairwise algorithm which has been empirically shown to approximate listwise objective functions.\n\nList of methods A partial list of published learning-to-rank algorithms is shown below with years of first publication of each method. Note: as most supervised learning-to-rank algorithms can be applied to",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "Pointwise approaches predict a relevance score for each document independently; pairwise approaches learn from the relative order of document pairs; listwise approaches optimize a loss defined over the entire ranked list.",
+      "correctness": "incorrect",
+      "correctness_score": 0.0,
+      "faithful": true,
+      "judge_reasoning": "",
+      "answer_similarity": 0.7076
+    },
+    {
+      "id": "q20",
+      "question": "What is retrieval-augmented generation (RAG)?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "retrieval-augmented-generation",
+        "large-language-model"
+      ],
+      "answer": "Retrieval-augmented generation (RAG) is an approach that integrates large language models (LLMs) with document retrieval systems. Given a query, a document retriever retrieves the most relevant documents, which are then used to augment the query and improve the LLM's response. This method helps reduce AI hallucinations and includes sources in the response, providing greater transparency.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "RAG is a technique that lets a large language model retrieve relevant information from an external data source and incorporate it before generating an answer, so responses can draw on up-to-date or domain-specific knowledge that is not in the model's training data.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer accurately describes RAG as a technique that uses a document retriever to integrate LLMs with external data sources, similar to the reference answer.",
+      "answer_similarity": 0.6799
+    },
+    {
+      "id": "q21",
+      "question": "How does retrieval-augmented generation help reduce hallucinations?",
+      "expected_abstain": false,
+      "abstained": true,
+      "reformulations": 2,
+      "retrieved_docs": [
+        "retrieval-augmented-generation"
+      ],
+      "answer": "I don't have enough grounded information in the corpus to answer that.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "By grounding the answer in retrieved source documents and letting the model cite them, RAG keeps the LLM closer to the facts and lets users verify sources, which reduces fabricated or unsupported content.",
+      "correctness": "incorrect",
+      "correctness_score": 0.0,
+      "faithful": false,
+      "judge_reasoning": "The system answer is not related to how retrieval-augmented generation helps reduce hallucinations.",
+      "answer_similarity": 0.2885
+    },
+    {
+      "id": "q22",
+      "question": "How are documents typically prepared for retrieval in a RAG system?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "retrieval-augmented-generation",
+        "information-retrieval",
+        "large-language-model"
+      ],
+      "answer": "Documents are typically converted into LLM embeddings, which are numerical representations in the form of a large vector space. These embeddings are then stored in a vector database to allow for document retrieval.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "Documents are converted into embeddings (vector representations) and stored in a vector database; given a user query, a retriever selects the most relevant documents to augment the prompt sent to the model.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer accurately describes how documents are prepared for retrieval in a RAG system by mentioning converting them into embeddings, which is consistent with the reference answer.",
+      "answer_similarity": 0.7772
+    },
+    {
+      "id": "q23",
+      "question": "What mechanism is central to the transformer architecture?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "transformer"
+      ],
+      "answer": "The central mechanism in the transformer architecture is the multi-head attention mechanism, which allows for parallel processing of different parts of the input while still capturing relevant information across these parts.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "The transformer is built around the (multi-head) self-attention mechanism, which lets the model weigh the relevance of different tokens in the sequence to one another.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer accurately describes the multi-head attention mechanism as the central component of the transformer architecture, similar to the reference answer.",
+      "answer_similarity": 0.7587
+    },
+    {
+      "id": "q24",
+      "question": "What advantage do transformers have over recurrent neural networks for processing sequences?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "transformer",
+        "large-language-model"
+      ],
+      "answer": "Transformers have the advantage of having no recurrent units, therefore requiring less training time than earlier recurrent neural architectures (RNNs) such as long short-term memory (LSTM).",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "Transformers process all tokens in parallel through attention rather than step by step, which improves parallelization during training and helps model long-range dependencies more effectively than recurrent networks.",
+      "correctness": "incorrect",
+      "correctness_score": 0.0,
+      "faithful": false,
+      "judge_reasoning": "The system answer does not accurately reflect the comparison between transformers and recurrent neural networks regarding their advantages. The reference mentions that transformers use attention mecha",
+      "answer_similarity": 0.7748
+    },
+    {
+      "id": "q25",
+      "question": "What is a large language model?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "large-language-model",
+        "transformer"
+      ],
+      "answer": "A large language model (LLM) is an AI model (typically a neural network) trained on a vast amount of text for natural language processing tasks, especially language generation. LLMs can typically generate, summarize, translate, and analyze text in many contexts, and are a foundational technology behind modern chatbots. Biased or inaccurate training data can make an LLM's output less reliable.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "A large language model is an AI model, typically a neural network based on the transformer architecture, trained on a vast amount of text for natural language processing tasks, especially language generation.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer accurately conveys the key facts from the reference answer, including defining a large language model as an AI model trained on a vast amount of text for natural language processing ",
+      "answer_similarity": 0.7346
+    },
+    {
+      "id": "q26",
+      "question": "How is text prepared before it can be processed by a large language model?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "large-language-model",
+        "transformer",
+        "retrieval-augmented-generation"
+      ],
+      "answer": "Text preparation before it can be processed by a large language model includes converting text into embeddings, which are numerical representations in a large vector space. These embeddings are then stored in a vector database to allow for document retrieval.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "Because the model operates on numbers rather than raw text, the text is first converted into numerical tokens by a tokenizer, and each token is mapped to a vector representation.",
+      "correctness": "incorrect",
+      "correctness_score": 0.0,
+      "faithful": false,
+      "judge_reasoning": "The system answer does not mention the conversion of text into numerical tokens or using a tokenizer, which are part of the process described in the reference answer.",
+      "answer_similarity": 0.5687
+    },
+    {
+      "id": "q27",
+      "question": "What is information retrieval?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "information-retrieval",
+        "ir-evaluation-measures"
+      ],
+      "answer": "Information retrieval (IR) in computing and information science is the task of identifying and retrieving information system resources that are relevant to an information need. It involves matching user queries against a collection of documents or data, often ranking the results based on relevance. IR systems aim to provide efficient and accurate responses to information requests, reducing \"information overload\" and improving user experience.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "Information retrieval is the task of identifying and retrieving, from a large collection, the resources (typically documents) that are relevant to a user's information need, usually expressed as a query.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer accurately conveys the definition of information retrieval by mentioning its role in identifying and retrieving information resources, including the use of queries for matching and r",
+      "answer_similarity": 0.7996
+    },
+    {
+      "id": "q28",
+      "question": "What is an inverted index and why is it used in retrieval?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "information-retrieval",
+        "bm25",
+        "ir-evaluation-measures",
+        "learning-to-rank"
+      ],
+      "answer": "An inverted index is a data structure used in information retrieval to efficiently store and retrieve indexed documents. It works by associating each term in a corpus with a list of documents where that term appears. This allows for quick lookup of documents containing specific terms without having to scan through the entire document collection. Inverted indexes are crucial because they significantly speed up the process of finding relevant documents by reducing the amount of data that needs to be examined during searches.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "An inverted index maps each term to the list of documents that contain it, so a search engine can quickly look up which documents match the terms in a query instead of scanning every document.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer accurately describes what an inverted index is and its purpose in information retrieval, including how it speeds up search processes by reducing the number of documents that need to ",
+      "answer_similarity": 0.905
+    },
+    {
+      "id": "q29",
+      "question": "What is a question answering system?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "question-answering"
+      ],
+      "answer": "A question answering system is a computer program that constructs answers by querying a structured database of knowledge or information, often a knowledge base, or pulling answers from an unstructured collection of natural language documents. It uses a combination of techniques from computational linguistics, information retrieval, and knowledge representation to answer questions based on the available data.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "A question answering system, drawing on information retrieval and natural language processing, automatically produces answers to questions posed by people in natural language.",
+      "correctness": "correct",
+      "correctness_score": 1.0,
+      "faithful": true,
+      "judge_reasoning": "The system answer accurately describes a question answering system as a computer program that queries a structured database or pulls answers from unstructured documents using various techniques such a",
+      "answer_similarity": 0.7339
+    },
+    {
+      "id": "q30",
+      "question": "What is the difference between open-domain and closed-domain question answering?",
+      "expected_abstain": false,
+      "abstained": false,
+      "reformulations": 0,
+      "retrieved_docs": [
+        "question-answering"
+      ],
+      "answer": "Open-domain question answering deals with questions about nearly anything and can only rely on general ontologies and world knowledge. Systems designed for open-domain question answering usually have much more data available from which to extract the answer. An example of an open-domain question is \"What did Albert Einstein win the Nobel Prize for?\" while no article about this subject is given to the system.",
+      "hit": 1.0,
+      "recall": 1.0,
+      "rr": 1.0,
+      "reference": "Open-domain question answering answers questions about almost anything using large general collections, whereas closed-domain question answering answers questions within a specific domain, often using domain-specific knowledge.",
+      "correctness": "incorrect",
+      "correctness_score": 0.0,
+      "faithful": false,
+      "judge_reasoning": "The system answer does not correctly describe the differences between open-domain and closed-domain question answering. It incorrectly states that open-domain systems deal with questions about nearly ",
+      "answer_similarity": 0.7919
+    },
+    {
+      "id": "q31",
+      "question": "Who won the 2018 FIFA World Cup?",
+      "expected_abstain": true,
+      "abstained": true,
+      "reformulations": 2,
+      "retrieved_docs": [
+        "question-answering",
+        "learning-to-rank",
+        "information-retrieval",
+        "ir-evaluation-measures",
+        "transformer"
+      ],
+      "answer": "I don't have enough grounded information in the corpus to answer that.",
+      "abstain_correct": true
+    },
+    {
+      "id": "q32",
+      "question": "What is the boiling point of water in degrees Fahrenheit?",
+      "expected_abstain": true,
+      "abstained": true,
+      "reformulations": 2,
+      "retrieved_docs": [
+        "ir-evaluation-measures",
+        "precision-and-recall",
+        "cosine-similarity"
+      ],
+      "answer": "I don't have enough grounded information in the corpus to answer that.",
+      "abstain_correct": true
+    },
+    {
+      "id": "q33",
+      "question": "In what year was the Eiffel Tower completed?",
+      "expected_abstain": true,
+      "abstained": true,
+      "reformulations": 2,
+      "retrieved_docs": [
+        "learning-to-rank",
+        "information-retrieval",
+        "question-answering",
+        "transformer",
+        "nearest-neighbor-search"
+      ],
+      "answer": "I don't have enough grounded information in the corpus to answer that.",
+      "abstain_correct": true
+    }
+  ],
+  "thresholds": {
+    "hit_at_k": 0.9,
+    "recall_at_k": 0.9,
+    "mrr": 0.88,
+    "answer_similarity": 0.68,
+    "answer_correctness": 0.58,
+    "faithfulness": 0.62,
+    "abstain_accuracy": 0.66
+  },
+  "passed": true,
+  "failures": []
+}
