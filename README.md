@@ -61,9 +61,9 @@ CI from recorded fixtures. Full report: [`evals/reports/latest.json`](evals/repo
 | faithfulness | 0.73 | answers free of claims unsupported by the context |
 | abstention accuracy | 1.00 | correctly abstains on the out-of-corpus controls |
 
-- Corpus: 190 chunks across 15 documents , Golden set: 30 answerable + 3 out-of-corpus controls.
-- Generation + judge: Qwen2.5-1.5B-Instruct, run locally on CPU , Embeddings: all-MiniLM-L6-v2
-  (local) , k = 5.
+- Corpus: 190 chunks across 15 documents. Golden set: 30 answerable + 3 out-of-corpus controls.
+- Generation + judge: Qwen2.5-1.5B-Instruct, run locally on CPU. Embeddings: all-MiniLM-L6-v2
+  (local), k = 5.
 
 Retrieval and answer-similarity are deterministic; correctness and faithfulness are LLM-judged. The
 generator is a small local model, chosen so the entire suite reproduces with no API key and no cost
