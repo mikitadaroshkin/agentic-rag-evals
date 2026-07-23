@@ -136,7 +136,7 @@ you cannot quietly change model behaviour without the evals noticing.
   interface; a cross-encoder reranker; per-query cost/latency budgets in the graph; online eval on
   sampled production traffic feeding back into the golden set; and a richer guardrail policy layer.
 
-## Corpus & license
+## Corpus provenance
 
 The corpus is a snapshot of English Wikipedia extracts (CC BY-SA 4.0) on IR/ML topics; provenance,
 attribution, and the refresh script are in [`data/README.md`](data/README.md). No client, proprietary,
@@ -154,4 +154,4 @@ tests/              unit + smoke tests (run offline)
 
 ## License
 
-[MIT](LICENSE) (c) Mikita Daroshkin
+[MIT](LICENSE) (c) 2026 Mikita Daroshkin
