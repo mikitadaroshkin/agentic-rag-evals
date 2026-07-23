@@ -1,4 +1,4 @@
-"""Offline evaluation harness — the project's centrepiece.
+"""Offline evaluation harness - the project's centrepiece.
 
 Runs every golden question through the agentic graph, then reports:
 
@@ -183,7 +183,7 @@ def _print_summary(report: dict, passed: bool, failures: list[str]) -> None:
     r, a, ab = report["retrieval"], report.get("answer", {}), report["abstention"]
     c = report["config"]
     print("\n" + "=" * 60)
-    print(f"  agentic-rag-evals — {report['counts']['answerable']} answerable + "
+    print(f"  agentic-rag-evals - {report['counts']['answerable']} answerable + "
           f"{report['counts']['abstain_controls']} controls")
     print(f"  llm={c['llm_model']}  judge={c['judge_model']}  emb={c['embedding_backend']}  "
           f"mode={c['cassette_mode']}")

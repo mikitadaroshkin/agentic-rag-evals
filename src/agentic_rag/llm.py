@@ -3,10 +3,10 @@
 Three execution modes, selected by config so the same code path serves production,
 free/deterministic CI, and key-less local development:
 
-* **live** — a real OpenAI-compatible chat completion (any base_url: OpenAI, Ollama, vLLM).
-* **cassette** — record real responses to disk, then replay them deterministically. This is
+* **live** - a real OpenAI-compatible chat completion (any base_url: OpenAI, Ollama, vLLM).
+* **cassette** - record real responses to disk, then replay them deterministically. This is
   what lets the eval harness gate every PR for free and reproduce headline numbers exactly.
-* **FakeLLM** — a deterministic, dependency-free stand-in used when no key is present, so the
+* **FakeLLM** - a deterministic, dependency-free stand-in used when no key is present, so the
   full graph and tests run offline. Its outputs are heuristic, never network-backed.
 
 Everything funnels through :func:`chat`, keyed on the exact (model, system, user) text.

@@ -1,6 +1,6 @@
 """Embedding backends.
 
-Default is a local ``sentence-transformers`` model — real vectors, no key, no network at
+Default is a local ``sentence-transformers`` model - real vectors, no key, no network at
 query time once the model is cached. The hosted backend (OpenAI-compatible) is a drop-in swap
 for teams that prefer a managed embedding endpoint.
 """

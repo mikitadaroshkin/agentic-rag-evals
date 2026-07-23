@@ -16,7 +16,7 @@ from .schemas import QueryRequest, QueryResponse
 app = FastAPI(
     title="agentic-rag-evals",
     version="0.1.0",
-    description="Evaluation-driven agentic RAG — reference implementation.",
+    description="Evaluation-driven agentic RAG - reference implementation.",
 )
 
 

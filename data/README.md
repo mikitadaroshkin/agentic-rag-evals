@@ -1,6 +1,6 @@
 # Corpus
 
-A small, coherent corpus of **information-retrieval / ML / RAG concept articles** — chosen so
+A small, coherent corpus of information-retrieval / ML / RAG concept articles - chosen so
 that retrieval is meaningful and the golden Q/A are substantive (a RAG system answering questions
 about retrieval).
 
@@ -10,10 +10,10 @@ The documents in `corpus/` are plain-text extracts of English Wikipedia articles
 [`fetch_corpus.py`](fetch_corpus.py). Each file ends with an attribution line linking back to its
 source article.
 
-- **Source:** English Wikipedia (see per-file attribution footer for the exact article + URL).
-- **License:** text is licensed under **CC BY-SA 4.0**. Reuse must keep attribution and preserve
+- Source: English Wikipedia (see per-file attribution footer for the exact article + URL).
+- License: text is licensed under CC BY-SA 4.0. Reuse must keep attribution and preserve
   the same license.
-- **Snapshot:** the extracts are committed so the repo is self-contained and CI is deterministic.
+- Snapshot: the extracts are committed so the repo is self-contained and CI is deterministic.
   Re-fetch a fresh snapshot with `python data/fetch_corpus.py` (requires network).
 
 No client, proprietary, or personal data is present anywhere in this repository.
@@ -25,7 +25,7 @@ No client, proprietary, or personal data is present anywhere in this repository.
 | `information-retrieval` | Information retrieval |
 | `bm25` | Okapi BM25 |
 | `vector-space-model` | Vector space model |
-| `tf-idf` | Tf–idf |
+| `tf-idf` | Tf-idf |
 | `word-embedding` | Word embedding |
 | `sentence-embedding` | Sentence embedding |
 | `cosine-similarity` | Cosine similarity |

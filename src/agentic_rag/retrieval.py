@@ -1,6 +1,6 @@
 """Hybrid retrieval: dense (Chroma) + lexical (BM25), fused with Reciprocal Rank Fusion.
 
-RRF is a rank-based fusion that needs no score calibration between the two retrievers —
+RRF is a rank-based fusion that needs no score calibration between the two retrievers -
 each contributes ``1 / (k + rank)`` per document, which is robust when cosine similarities
 and BM25 scores live on incomparable scales. The top dense cosine similarity is surfaced as
 a retrieval-confidence signal the graph uses to decide whether to reformulate and retry.

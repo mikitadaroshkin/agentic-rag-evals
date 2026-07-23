@@ -1,4 +1,4 @@
-"""Evaluation-driven agentic RAG — reference implementation.
+"""Evaluation-driven agentic RAG - reference implementation.
 
 Public surface is intentionally small; import submodules directly.
 """

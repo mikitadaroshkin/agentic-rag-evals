@@ -1,6 +1,6 @@
 """Prompt templates.
 
-Kept in one module so a prompt change is a reviewable diff — and, because the eval
+Kept in one module so a prompt change is a reviewable diff - and, because the eval
 cassettes are keyed on the exact prompt text, any change here forces a re-record of
 the fixtures (which is exactly when the eval numbers should be re-examined).
 """
